@@ -35,4 +35,16 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const zoo = await zooHelper.update(req.params.id, req.body);
+    res.status(200).json(zoo);
+  } catch (error) {
+    console.log(`:: ERROR IS :: ${error}`);
+    res
+      .status(500)
+      .json({ ErrorMessage: "Could not update zoo! Something went wrong :(" });
+  }
+});
+
 module.exports = router;
