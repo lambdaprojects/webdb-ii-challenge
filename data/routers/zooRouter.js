@@ -4,8 +4,8 @@ const zooHelper = require("../helpers/zooHelper.js");
 
 router.get("/", async (req, res) => {
   try {
-    const animals = await zooHelper.find();
-    res.status(200).json(animals);
+    const zoos = await zooHelper.find();
+    res.status(200).json(zoos);
   } catch (error) {
     console.log(error);
     res.status(500).json({ ErrorMessage: "Could not retrieve zoo names" });
@@ -14,12 +14,24 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
-    const animal = await zooHelper.findById(req.params.id);
-    res.status(200).json(animal);
+    const zoo = await zooHelper.findById(req.params.id);
+    res.status(200).json(zoo);
   } catch (error) {
     res
       .status(500)
       .json({ ErrorMessage: "Could not retrieve the zoo name for that id" });
+  }
+});
+
+router.post("/", async (req, res) => {
+  try {
+    const zoo = await zooHelper.add(req.body);
+    res.status(200).json({ Message: "The zoo was added successfully!" });
+  } catch (error) {
+    console.log(`:: ERROR IS :: ${error}`);
+    res
+      .status(500)
+      .json({ ErrorMessage: "Could not add zoo! Something went wrong :(" });
   }
 });
 

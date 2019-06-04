@@ -2,7 +2,8 @@ const db = require("../dbconfig.js");
 
 module.exports = {
   find,
-  findById
+  findById,
+  add
 };
 
 function find() {
@@ -13,4 +14,9 @@ function find() {
 function findById(id) {
   console.log(`:: THE QUERY IS :: ${db("zoos").where({ id })}`);
   return db("zoos").where({ id });
+}
+
+function add(zoo) {
+  console.log(`:: THE QUERY IS :: ${db("zoos").insert(zoo)}`);
+  return db("zoos").insert(zoo);
 }
