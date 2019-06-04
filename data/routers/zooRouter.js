@@ -47,4 +47,15 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const zoo = await zooHelper.remove(req.params.id);
+    res.status(200).json({ Message: "Zoo deleted successfully!" });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ ErrorMessage: "Could not delete zoo! Something went wrong :(" });
+  }
+});
+
 module.exports = router;
